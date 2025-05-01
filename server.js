@@ -8,11 +8,22 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
+// Apply CORS middleware before defining routes
 app.use(cors({
-    origin: 'https://botani-cart.vercel.app',  // Allow requests only from your frontend's URL
-  }));
+  origin: 'https://botani-cart.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Handle OPTIONS preflight requests explicitly
+app.options('*', cors());
 
 app.use("/api", uploadRouter); // Route becomes /api/upload
+
+// Basic health check endpoint
+app.get('/', (req, res) => {
+  res.status(200).send('Server is running');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
