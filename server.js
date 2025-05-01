@@ -7,12 +7,16 @@ dotenv.config();
 
 const app = express();
 
-// Configure CORS
+// Configure CORS - this is crucial
 app.use(cors({
   origin: ["https://botani-cart.vercel.app", "http://localhost:3000"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
+// Handle preflight OPTIONS requests explicitly
+app.options('*', cors()); 
 
 app.use(express.json());
 
