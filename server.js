@@ -1,16 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
 import uploadRouter from "./routes/s3Upload.js";
-import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-
-app.use(cors({
-    origin: 'https://botani-cart.vercel.app/',  // Allow requests only from your frontend's URL
-  }));
 
 app.use("/api", uploadRouter); // Route becomes /api/upload
 
