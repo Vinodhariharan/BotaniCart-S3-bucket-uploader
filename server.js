@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:5173',  // Allow requests only from your frontend's URL
+    origin: 'https://botani-cart.vercel.app/',  // Allow requests only from your frontend's URL
   }));
 
 app.use("/api", uploadRouter); // Route becomes /api/upload
